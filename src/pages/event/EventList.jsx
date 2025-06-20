@@ -27,7 +27,7 @@ const EventList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Fetch blogs from API
+    // Fetch events from API
     useEffect(() => {
         const fetchEvents = async () => {
             try {
@@ -35,12 +35,12 @@ const EventList = () => {
                     credentials: "include",
                 });
                 if (!response.ok) {
-                    throw new Error(`Failed to fetch blogs: ${response.statusText}`);
+                    throw new Error(`Failed to fetch events: ${response.statusText}`);
                 }
                 const data = await response.json();
                 setEvents(data?.data);
             } catch (err) {
-                setError(err.message || "Failed to fetch blogs");
+                setError(err.message || "Failed to fetch events");
             } finally {
                 setLoading(false);
             }
@@ -50,14 +50,14 @@ const EventList = () => {
     }, []);
 
     const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this blog post?")) {
+        if (window.confirm("Are you sure you want to delete this event post?")) {
             try {
                 const response = await fetch(VITE_BACKEND_URL + `/event/${id}`, {
                     method: "DELETE",
                     credentials: "include",
                 });
                 if (!response.ok) {
-                    throw new Error(`Failed to delete blog: ${response.statusText}`);
+                    throw new Error(`Failed to delete event: ${response.statusText}`);
                 }
                 setEvents(events.filter((event) => event.id !== id));
             } catch (error) {
@@ -119,7 +119,7 @@ const EventList = () => {
                                                     height: "100%",
                                                     minHeight: 200,
                                                     backgroundImage: `url(${generateImageUrl(
-                                                        blog.image
+                                                        event.image
                                                     )})`,
                                                     backgroundSize: "cover",
                                                     backgroundPosition: "center",
@@ -140,13 +140,13 @@ const EventList = () => {
                                                         component="h2"
                                                         gutterBottom
                                                     >
-                                                        {blog.name}
+                                                        {event.name}
                                                     </Typography>
                                                     <Box>
                                                         <IconButton
                                                             color="primary"
                                                             onClick={() =>
-                                                                navigate(`/events/${blog.id}`)
+                                                                navigate(`/events/${event.id}`)
                                                             }
                                                         >
                                                             <VisibilityIcon />
@@ -173,7 +173,7 @@ const EventList = () => {
                                                     color="text.secondary"
                                                     gutterBottom
                                                 >
-                                                    {blog.content}
+                                                    {event.content}
                                                 </Typography>
                                             </Box>
                                         </Grid>
