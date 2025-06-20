@@ -144,6 +144,13 @@ const MainLayout = () => {
                     <ListItemText primary="Blogs" />
                 </ListItemButton>
 
+                <ListItemButton onClick={() => navigate("/event")}>
+                    <ListItemIcon>
+                        <FoodBank />
+                    </ListItemIcon>
+                    <ListItemText primary="Event" />
+                </ListItemButton>
+
                 <ListItemButton onClick={() => navigate("/tours")}>
                     <ListItemIcon>
                         <MapIcon />
