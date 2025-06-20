@@ -168,7 +168,7 @@ const EditEvent = () => {
                             <TextField
                                 required
                                 fullWidth
-                                label="Blog Title"
+                                label="Event Title"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 variant="outlined"
