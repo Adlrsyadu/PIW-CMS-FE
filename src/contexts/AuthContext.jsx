@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { VITE_BACKEND_URL } from "../utils/core";
 
 // Create context
 const AuthContext = createContext(undefined);
@@ -23,7 +24,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         setError("");
         try {
-            const response = await fetch("http://localhost:5555/user/signin", {
+            const response = await fetch(VITE_BACKEND_URL + "/user/signin", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -70,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     // Logout function
     const logout = async () => {
         try {
-            await fetch("http://localhost:5555/user/signout", {
+            await fetch(VITE_BACKEND_URL + "/user/signout", {
                 method: "GET",
                 credentials: "include",
             });
