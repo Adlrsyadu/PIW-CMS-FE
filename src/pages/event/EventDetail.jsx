@@ -9,10 +9,10 @@ import {
 import { generateImageUrl } from "../../utils/generateUrlImage";
 import { VITE_BACKEND_URL } from "../../utils/core";
 
-const BlogDetail = () => {
+const EventDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [blog, setBlog] = useState(null);
+    const [event, setEvent] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -24,12 +24,12 @@ const BlogDetail = () => {
                     credentials: "include",
                 });
                 if (!response.ok) {
-                    throw new Error(`Failed to fetch blog: ${response.statusText}`);
+                    throw new Error(`Failed to fetch event: ${response.statusText}`);
                 }
                 const data = await response.json();
                 setEvent(data?.data || data);
             } catch (err) {
-                setError(err.message || "Failed to fetch blog");
+                setError(err.message || "Failed to fetch event");
             } finally {
                 setLoading(false);
             }
@@ -39,14 +39,14 @@ const BlogDetail = () => {
     }, [id]);
 
     const handleDelete = async () => {
-        if (window.confirm("Are you sure you want to delete this blog post?")) {
+        if (window.confirm("Are you sure you want to delete this event post?")) {
             try {
                 const response = await fetch(VITE_BACKEND_URL + `/event/${id}`, {
                     method: "DELETE",
                     credentials: "include",
                 });
                 if (!response.ok) {
-                    throw new Error(`Failed to delete blog: ${response.statusText}`);
+                    throw new Error(`Failed to delete event: ${response.statusText}`);
                 }
                 navigate("/event");
             } catch (error) {
@@ -88,7 +88,7 @@ const BlogDetail = () => {
         );
     }
 
-    if (!blog) {
+    if (!event) {
         return (
             <Box>
                 <Typography variant="h5" color="error">
@@ -131,7 +131,7 @@ const BlogDetail = () => {
                     <EditIcon
                         color="secondary"
                         sx={{ cursor: "pointer", mr: 1 }}
-                        onClick={() => navigate(`/events/edit/${blog.id}`)}
+                        onClick={() => navigate(`/events/edit/${event.id}`)}
                     />
                     <DeleteIcon color="error" sx={{ cursor: "pointer" }} onClick={handleDelete} />
                 </Box>
@@ -148,7 +148,7 @@ const BlogDetail = () => {
                 <Box
                     sx={{
                         height: 300,
-                        backgroundImage: `url(${generateImageUrl(blog.image)})`,
+                        backgroundImage: `url(${generateImageUrl(event.image)})`,
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                     }}
@@ -156,10 +156,10 @@ const BlogDetail = () => {
 
                 <Box sx={{ p: 4 }}>
                     <Typography variant="h5" gutterBottom>
-                        {blog.name}
+                        {event.name}
                     </Typography>
                     <Typography variant="body1" sx={{ whiteSpace: "pre-line" }}>
-                        {blog.content}
+                        {event.content}
                     </Typography>
                 </Box>
             </Paper>
@@ -167,4 +167,4 @@ const BlogDetail = () => {
     );
 };
 
-export default BlogDetail;
+export default EventDetail;
