@@ -4,7 +4,7 @@ import { Box, Typography, TextField, Button, Grid, Paper, CircularProgress } fro
 import { Save as SaveIcon, ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import { VITE_BACKEND_URL } from "../../utils/core";
 
-const AddBlog = () => {
+const AddEvent = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -60,7 +60,7 @@ const AddBlog = () => {
             setLoading(false);
             navigate("/event");
         } catch (err) {
-            setError(err.message || "Failed to submit blog");
+            setError(err.message || "Failed to submit event");
             setLoading(false);
         }
     };
@@ -76,14 +76,14 @@ const AddBlog = () => {
                 }}
             >
                 <Typography variant="h4" component="h1" gutterBottom>
-                    Add New Blog
+                    Add New Event
                 </Typography>
                 <Button
                     variant="outlined"
                     startIcon={<ArrowBackIcon />}
                     onClick={() => navigate("/event")}
                 >
-                    Back to Blogs
+                    Back to Events
                 </Button>
             </Box>
 
@@ -99,7 +99,7 @@ const AddBlog = () => {
                             <TextField
                                 required
                                 fullWidth
-                                label="Blog Title"
+                                label="Event Title"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 variant="outlined"
@@ -161,7 +161,7 @@ const AddBlog = () => {
                                 <Button
                                     variant="outlined"
                                     sx={{ mr: 2 }}
-                                    onClick={() => navigate("/blogs")}
+                                    onClick={() => navigate("/events")}
                                 >
                                     Cancel
                                 </Button>
@@ -178,7 +178,7 @@ const AddBlog = () => {
                                     }
                                     disabled={loading}
                                 >
-                                    {loading ? "Saving..." : "Save Blog"}
+                                    {loading ? "Saving..." : "Save Event"}
                                 </Button>
                             </Box>
                         </Grid>
@@ -189,4 +189,4 @@ const AddBlog = () => {
     );
 };
 
-export default AddBlog;
+export default AddEvent;
